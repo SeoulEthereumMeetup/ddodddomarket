@@ -1,5 +1,18 @@
-pragma solidity ^0.4.16;
-contract Product {
+
+contract ProductStore {
+
+    mapping (address => uint256) public productPrice;
+   
+    function registerProduct(address _productAddress, uint256 _salePrice) {
+        productPrice[_productAddress] = _salePrice;
+    }
+    
+    function getProductSalePrice(address _productAddress) constant returns (uint256 _salePrice) {
+        return productPrice[_productAddress];
+    }
+}
+
+contract ProductTemplate {
 
     uint256 public totalSupply;
     string public productName;
@@ -7,16 +20,16 @@ contract Product {
     event Sold(string userId, uint256 amount);
     event SoldOut();
     
-    function Product(uint256 _totalSupply, string _productName) {
+    function ProductTemplate(uint256 _totalSupply, string _productName) {
         totalSupply = _totalSupply;
         productName = _productName;
     }
     
-    function getAmount() returns (uint256 amount){
+    function getAmount() constant returns (uint256 amount){
         return totalSupply;
     }
     
-    function getName() returns (uint256 productName){
+    function getName() constant returns (uint256 productName){
         return productName;
     }
     
@@ -40,4 +53,29 @@ contract Product {
     function removeAmount(uint256 amount) {
         totalSupply = totalSupply - amount;
     }
+}
+
+contract PurchaseStore {
+
+    mapping (string => mapping (address => uint256)) purchaseList;
+    // userid, product_address, amount 
+    
+    function savePurchase(string _userId, address _productAddress, uint256 _amount) {
+        purchaseList[_userId][_productAddress] += _amount;
+    }
+
+}
+
+contract UserStore {
+
+    mapping (string => string) userList;
+    
+    function registerUser(string _userId, string _userName) {
+        userList[_userId] = _userName;
+    }
+    
+    function getUserName(string _userId) constant returns (string _userName) {
+        return userList[_userId];
+    }
+    
 }
