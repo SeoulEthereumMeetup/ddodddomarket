@@ -301,7 +301,11 @@
             </exclusions>
         </dependency>
   
-  
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>2.3.1</version>
+		</dependency>
   
   
     <dependency>
