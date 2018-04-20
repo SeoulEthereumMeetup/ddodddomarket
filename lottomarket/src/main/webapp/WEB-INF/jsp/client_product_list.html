@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/resources/web3/dist/web3.js"></script>
+  <script src="/resources/web3/lib/web3/web3.js"></script>
+  <script src="/resources/bignumber.js/bignumber.js"></script>
+  <script src="/resources/handlebars/handlebars-v4.0.10.js"></script>
+
+  <link rel="stylesheet" href="/resources/css/bootstrap-front.min.css"/>
+
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .center {
+      margin: auto;
+      width: 50%;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">DDoDDo Market</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Accounts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">MyPage</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<!-- Page Explain -->
+<div class="row">
+  <div class="col-md-8 center" style="margin-top: 25px; margin-bottom: 25px;">
+    <h3>
+      DDoDDo Market
+      <small class="text-muted"> is very fantastic market</small>
+    </h3>
+  </div>
+</div>
+
+<!-- product detail -->
+<div class="row">
+  <div class="center" id="products">
+  </div>
+</div>
+
+<script id="productsTemplate" type="text/x-handlebars-template">
+  {{#each .}}
+  <div class="card mb-3">
+    <h3 class="card-header">Product title</h3>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+    </div>
+
+    <div class="row" style="margin-bottom : 15px;">
+      <div class="col-md-5">
+        <img style="height: 200px; width: 80%; margin-left:10%; display: block;"
+             src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+             alt="Card image">
+      </div>
+      <div class="col-md-6" style="margin-right:5px;">
+        <table class="table table-hover">
+          <tbody>
+          <tr>
+            <th scope="col" style="width:30%;">Type</th>
+            <th style="width:70%">Value</th>
+          </tr>
+          <tr>
+            <th scope="col" style="width:30%;">Type</th>
+            <th style="width:70%">Value</th>
+          </tr>
+          <tr>
+            <th scope="col" style="width:30%;">Price</th>
+            <th style="width:70%">$100.00</th>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button type="button" class="btn btn-success action-btn" id="purchase-btn" data-type="purchase">Purchase</button>
+              <button type="button" class="btn btn-success action-btn" data-type="votes"
+                      data-toggle="modal" data-target="#voteModal">Vote
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <br/><br/>
+  {{/each}}
+  </div>
+</script>
+
+<script>
+  var printTemplate = function (data, target, templateObject) {
+    var template = Handlebars.compile(templateObject.html());
+    var html = template(data);
+    target.append(html);
+  };
+
+  $(function () {
+    var productsDiv = $('#products');
+    var actionDiv = $('#action-div');
+    (function init() {
+      getProducts();
+    })();
+
+    function getProducts() {
+      // get products
+      var data = [];
+      data.push({1 : 1});
+      data.push({2 : 2});
+      data.push({3 : 3});
+
+      printTemplate(data, productsDiv, $('#productsTemplate'));
+    }
+
+
+  });
+
+</script>
+</body>
+</html>
