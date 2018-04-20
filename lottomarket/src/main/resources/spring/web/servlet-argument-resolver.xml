@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+<!-- 	다국어 메세지 포맷팅인가? -->
+<!-- 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" /> -->
+	
+	<bean id="jworkAnnotationMethodHandlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="order" value="0"/>
+		<property name="customArgumentResolvers">
+			<list>
+<!-- 				<bean class="jwork.web.miplatform.support.MiplatformArgumentResolver" /> -->
+<!-- 				<bean class="jwork.web.xplatform.support.XplatformArgumentResolver" /> -->
+<!-- 				<bean class="jwork.web.parameter.resolver.JComponentArgumentResolver"/> -->
+<!-- 				<bean class="jwork.component.support.JComponentArgumentResolver" /> -->
+			</list>
+		</property>
+		
+		<property name="webBindingInitializer">
+			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+				<property name="validator"><bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/></property>
+			</bean>
+		</property>
+		
+		 <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+                <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+            </list>
+        </property>
+	</bean>
+
+
+</beans>

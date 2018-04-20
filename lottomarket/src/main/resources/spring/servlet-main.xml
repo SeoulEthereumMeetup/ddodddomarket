@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources/ directory -->
+	<!-- <mvc:resources mapping="/resources/**" location="/resources/" /> -->
+
+
+	<import resource="classpath:spring/web/servlet-component-scan.xml"/>
+	<import resource="classpath:spring/web/servlet-interceptors.xml"/>
+	<import resource="classpath:spring/web/servlet-argument-resolver.xml"/>
+	<import resource="classpath:spring/web/servlet-view-resolver.xml"/>
+	<import resource="classpath:spring/web/servlet-exception-resolver.xml"/>
+	<import resource="classpath:spring/web/servlet-site-*.xml"/>
+
+</beans>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<aop:aspectj-autoproxy proxy-target-class="false"/>
+
+	<!-- ======================================================================================================== -->
+
+	<!-- service에 모든 메소드에 transactionAdvice를 적용 한다. -->
+	<aop:config proxy-target-class="false" >
+		<aop:pointcut id="defaultServiceOperation" expression="(@within(org.springframework.stereotype.Service))" />
+		<aop:advisor pointcut-ref="defaultServiceOperation" advice-ref="transactionAdvice" />
+<!--		<aop:advisor pointcut-ref="defaultServiceOperation" advice-ref="solrAdvice" />-->
+	</aop:config>
+	
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="modify*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="*T" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+	
+	<tx:annotation-driven order="0" mode="proxy"/>	
+	<tx:annotation-driven transaction-manager="transactionManager" mode="proxy" order="1"/>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+    
+<!-- 	<bean name="solrAdvice" class="jwork.solr.aop.SolrDBMethodInterceptor"/> -->
+    
+    
+	<!-- <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"> -->
+<!-- 	<bean id="sqlMapClient" -->
+<!-- 		class="jcf.dao.ibatis.sqlmap.RefreshableSqlMapClientFactoryBean"> -->
+<!-- 		<property name="checkInterval" value="1000" /> -->
+<!-- 		<property name="configLocation" value="classpath:jwork/sqlmap/sql-map-config.xml" /> -->
+<!-- 		<property name="dataSource"> -->
+<!-- 			<ref bean="dataSource" /> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	
+</beans>

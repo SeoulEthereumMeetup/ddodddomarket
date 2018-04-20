@@ -1,0 +1,71 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+<display-name>Archetype Created Web Application</display-name>
+
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.jxml</url-pattern>
+		<url-pattern>*.json</url-pattern>
+		<url-pattern>*.ajax</url-pattern>
+		<url-pattern>*.mip</url-pattern>
+		<url-pattern>*.xpl</url-pattern>
+		<url-pattern>*.websquare</url-pattern>
+		<url-pattern>*.upload</url-pattern>
+        <url-pattern>*.and</url-pattern>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<listener>
+		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>		<!-- Parent -->
+		<param-value>
+			classpath:/spring/context-main.xml
+		</param-value>
+	</context-param>
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/servlet-main.xml</param-value>	<!-- Child -->
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.jxml</url-pattern>
+		<url-pattern>*.json</url-pattern>
+		<url-pattern>*.ajax</url-pattern>
+		<url-pattern>*.mip</url-pattern>
+		<url-pattern>*.xpl</url-pattern>
+		<url-pattern>*.websquare</url-pattern>
+		<url-pattern>*.upload</url-pattern>
+        <url-pattern>*.and</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>
